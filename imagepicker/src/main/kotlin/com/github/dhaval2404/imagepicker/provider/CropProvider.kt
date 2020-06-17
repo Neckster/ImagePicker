@@ -131,7 +131,7 @@ class CropProvider(activity: ImagePickerActivity) : BaseProvider(activity) {
                         "Add UCropActivity in Manifest" +
                         "<activity\n" +
                         "    android:name=\"com.yalantis.ucrop.UCropActivity\"\n" +
-                        "    android:screenOrientation=\"portrait\"\n" +
+                        "    android:screenOrientation=\"fullSensor\"\n" +
                         "    android:theme=\"@style/Theme.AppCompat.Light.NoActionBar\"/>"
             )
             ex.printStackTrace()

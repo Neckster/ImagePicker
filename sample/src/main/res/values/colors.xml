@@ -13,4 +13,6 @@
     <color name="dialog_choose_icon_color">@color/grey_600</color>
     <color name="dialog_choose_text_color">@color/grey_600</color>
 
+    <color name="ucrop_navigation_bar_color">@color/ucrop_color_ebony_clay</color>
+
 </resources>
