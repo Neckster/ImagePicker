@@ -13,7 +13,7 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.ImagePicker.UCrop" />
 
         <provider
             android:name="com.github.dhaval2404.imagepicker.ImagePickerFileProvider"

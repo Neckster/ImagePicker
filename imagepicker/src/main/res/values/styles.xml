@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Transparent.ImagePicker"
-           parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Transparent.ImagePicker" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -13,6 +12,10 @@
         <item name="android:windowNoTitle">true</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+
+        <item name="ucrop_navigation_bar_light">true</item>
     </style>
+
+    <style name="Theme.ImagePicker.UCrop" parent="Theme.AppCompat.Light.NoActionBar" />
 
 </resources>
