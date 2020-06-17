@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.UCrop" parent="AppTheme.NoActionBar">
+        <item name="android:navigationBarColor">@color/ucrop_navigation_bar_color</item>
+    </style>
+
+</resources>

@@ -10,13 +10,8 @@
                   android:theme="@style/Theme.Transparent.ImagePicker"
                   android:screenOrientation="unspecified"/>
 
-        <activity
-            android:name="com.yalantis.ucrop.UCropActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
         <provider
-            android:name="com.github.dhaval2404.imagepicker.ImagePickerFileProvider"
+            android:name=".ImagePickerFileProvider"
             android:authorities="${applicationId}.imagepicker.provider"
             android:exported="false"
             android:grantUriPermissions="true">
