@@ -11,8 +11,9 @@
 
 <div align="center">
   <sub>Built with ❤︎ by
-  <a href="https://twitter.com/Dhaval2404">Dhaval Patel</a> and
-  <a href="https://github.com/dhaval2404/imagepicker/graphs/contributors">
+  <a href="https://twitter.com/Dhaval2404">Dhaval Patel</a>,
+  <a href="https://github.com/Neckster">Mykola Digtiar</a> and
+  <a href="https://github.com/Neckster/imagepicker/graphs/contributors">
     contributors
   </a>
 </div>
