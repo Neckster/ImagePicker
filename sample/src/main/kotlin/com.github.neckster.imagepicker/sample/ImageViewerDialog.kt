@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.dialog_imageviewer.*
 
 /**
  * Dialog to View Image
@@ -13,6 +13,11 @@ import kotlinx.android.synthetic.main.dialog_imageviewer.*
  * @author Dhaval Patel
  * @version 1.6
  * @since 05 January 2019
+ *
+ * @author Mykola Digtiar
+ * @version 1.7.3
+ * @since 12 January 2021
+ *
  */
 class ImageViewerDialog : DialogFragment() {
 
@@ -32,13 +37,15 @@ class ImageViewerDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.dialog_imageviewer, container, false)
-        return rootView
+        return inflater.inflate(R.layout.dialog_imageviewer, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        codeImg.setImageResource(arguments?.getInt(EXTRA_IMAGE_RESOURCE, 0) ?: 0)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.findViewById<AppCompatImageView>(R.id.codeImg).run {
+            setImageResource(arguments?.getInt(EXTRA_IMAGE_RESOURCE, 0) ?: 0)
+        }
     }
 
     override fun onStart() {
