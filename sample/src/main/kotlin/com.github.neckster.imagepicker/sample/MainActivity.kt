@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.github.neckster.imagepicker.ImagePicker
@@ -62,11 +63,25 @@ class MainActivity : AppCompatActivity() {
             // Crop Square image
             .cropSquare()
             .setImageProviderInterceptor { imageProvider -> // Intercept ImageProvider
-                Log.d("ImagePicker", "Selected ImageProvider: "+imageProvider.name)
+                Log.d("ImagePicker", "Selected ImageProvider: " + imageProvider.name)
             }
             // Image resolution will be less than 512 x 512
             .maxResultSize(512, 512)
-            .start(PROFILE_IMAGE_REQ_CODE)
+            .start(
+                registerForActivityResult(
+                    ActivityResultContracts.StartActivityForResult()
+                ) { activityResult ->
+                    onActivityResultHandler(
+                        PROFILE_IMAGE_REQ_CODE,
+                        activityResult.resultCode,
+                        activityResult.data
+                    )
+                }
+            )
+
+        /*
+        * mProfileFile = file
+                    imgProfile.setLocalImage(file, true)*/
     }
 
     fun pickGalleryImage(view: View) {
@@ -85,7 +100,17 @@ class MainActivity : AppCompatActivity() {
             )
             // Image resolution will be less than 1080 x 1920
             .maxResultSize(1080, 1920)
-            .start(GALLERY_IMAGE_REQ_CODE)
+            .start(
+                registerForActivityResult(
+                    ActivityResultContracts.StartActivityForResult()
+                ) { activityResult ->
+                    onActivityResultHandler(
+                        GALLERY_IMAGE_REQ_CODE,
+                        activityResult.resultCode,
+                        activityResult.data
+                    )
+                }
+            )
     }
 
     fun pickCameraImage(view: View) {
@@ -97,33 +122,46 @@ class MainActivity : AppCompatActivity() {
             .saveDir(Environment.getExternalStorageDirectory())
             // .saveDir(Environment.getExternalStorageDirectory().absolutePath+File.separator+"ImagePicker")
             // .saveDir(getExternalFilesDir(null)!!)
-            .start(CAMERA_IMAGE_REQ_CODE)
+            .start(
+                registerForActivityResult(
+                    ActivityResultContracts.StartActivityForResult()
+                ) { activityResult ->
+                    onActivityResultHandler(
+                        CAMERA_IMAGE_REQ_CODE,
+                        activityResult.resultCode,
+                        activityResult.data
+                    )
+                }
+            )
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            Log.e("TAG", "Path:${ImagePicker.getFilePath(data)}")
-            // File object will not be null for RESULT_OK
-            val file = ImagePicker.getFile(data)!!
-            when (requestCode) {
-                PROFILE_IMAGE_REQ_CODE -> {
-                    mProfileFile = file
-                    imgProfile.setLocalImage(file, true)
-                }
-                GALLERY_IMAGE_REQ_CODE -> {
-                    mGalleryFile = file
-                    imgGallery.setLocalImage(file)
-                }
-                CAMERA_IMAGE_REQ_CODE -> {
-                    mCameraFile = file
-                    imgCamera.setLocalImage(file, false)
+    private fun onActivityResultHandler(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (resultCode) {
+            Activity.RESULT_OK -> {
+                Log.e("TAG", "Path:${ImagePicker.getFilePath(data)}")
+                // File object will not be null for RESULT_OK
+                val file = ImagePicker.getFile(data)!!
+                when (requestCode) {
+                    PROFILE_IMAGE_REQ_CODE -> {
+                        mProfileFile = file
+                        imgProfile.setLocalImage(file, true)
+                    }
+                    GALLERY_IMAGE_REQ_CODE -> {
+                        mGalleryFile = file
+                        imgGallery.setLocalImage(file)
+                    }
+                    CAMERA_IMAGE_REQ_CODE -> {
+                        mCameraFile = file
+                        imgCamera.setLocalImage(file, false)
+                    }
                 }
             }
-        } else if (resultCode == ImagePicker.RESULT_ERROR) {
-            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+            ImagePicker.RESULT_ERROR -> {
+                Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
