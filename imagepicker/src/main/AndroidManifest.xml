@@ -1,17 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.dhaval2404.imagepicker">
+    package="com.github.neckster.imagepicker">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application>
 
-        <activity android:name=".ImagePickerActivity"
+        <activity android:name="com.github.neckster.imagepicker.ImagePickerActivity"
                   android:theme="@style/Theme.Transparent.ImagePicker"
                   android:screenOrientation="unspecified"/>
 
         <provider
-            android:name=".ImagePickerFileProvider"
+            android:name="com.github.neckster.imagepicker.ImagePickerFileProvider"
             android:authorities="${applicationId}.imagepicker.provider"
             android:exported="false"
             android:grantUriPermissions="true">
