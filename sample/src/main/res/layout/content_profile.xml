@@ -25,7 +25,7 @@
                 app:srcCompat="@drawable/ic_person" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_add_photo"
+                android:id="@+id/fabAddPhoto"
                 style="@style/FabStyle"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"

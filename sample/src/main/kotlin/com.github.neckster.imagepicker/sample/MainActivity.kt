@@ -13,15 +13,20 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.github.neckster.imagepicker.ImagePicker
+import com.github.neckster.imagepicker.sample.databinding.ActivityMainBinding
+import com.github.neckster.imagepicker.sample.databinding.ContentCameraOnlyBinding
+import com.github.neckster.imagepicker.sample.databinding.ContentGalleryOnlyBinding
+import com.github.neckster.imagepicker.sample.databinding.ContentProfileBinding
 import com.github.neckster.imagepicker.sample.util.FileUtil
 import com.github.neckster.imagepicker.sample.util.IntentUtil
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_camera_only.*
-import kotlinx.android.synthetic.main.content_gallery_only.*
-import kotlinx.android.synthetic.main.content_profile.*
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var contentProfileBinding: ContentProfileBinding
+    private lateinit var contentGalleryOnlyBinding: ContentGalleryOnlyBinding
+    private lateinit var contentCameraOnlyBinding: ContentCameraOnlyBinding
 
     companion object {
 
@@ -38,9 +43,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        imgProfile.setDrawableImage(R.drawable.ic_person, true)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        binding.contentMainInclude.run {
+            contentProfileBinding = contentProfileInclude
+            contentGalleryOnlyBinding = contentGalleryOnlyInclude
+            contentCameraOnlyBinding = contentCameraOnlyInclude
+        }
+
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
+
+        contentProfileBinding.imgProfile.setDrawableImage(R.drawable.ic_person, true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -144,15 +160,15 @@ class MainActivity : AppCompatActivity() {
                 when (requestCode) {
                     PROFILE_IMAGE_REQ_CODE -> {
                         mProfileFile = file
-                        imgProfile.setLocalImage(file, true)
+                        contentProfileBinding.imgProfile.setLocalImage(file, true)
                     }
                     GALLERY_IMAGE_REQ_CODE -> {
                         mGalleryFile = file
-                        imgGallery.setLocalImage(file)
+                        contentGalleryOnlyBinding.imgGallery.setLocalImage(file)
                     }
                     CAMERA_IMAGE_REQ_CODE -> {
                         mCameraFile = file
-                        imgCamera.setLocalImage(file, false)
+                        contentCameraOnlyBinding.imgCamera.setLocalImage(file, false)
                     }
                 }
             }
@@ -167,9 +183,9 @@ class MainActivity : AppCompatActivity() {
 
     fun showImageCode(view: View) {
         val resource = when (view) {
-            imgProfileCode -> R.drawable.img_profile_code
-            imgCameraCode -> R.drawable.img_camera_code
-            imgGalleryCode -> R.drawable.img_gallery_code
+            contentProfileBinding.imgProfileCode -> R.drawable.img_profile_code
+            contentCameraOnlyBinding.imgCameraCode -> R.drawable.img_camera_code
+            contentGalleryOnlyBinding.imgGalleryCode -> R.drawable.img_gallery_code
             else -> 0
         }
         ImageViewerDialog.newInstance(resource).show(supportFragmentManager, "")
@@ -177,9 +193,9 @@ class MainActivity : AppCompatActivity() {
 
     fun showImage(view: View) {
         val file = when (view) {
-            imgProfile -> mProfileFile
-            imgCamera -> mCameraFile
-            imgGallery -> mGalleryFile
+            contentProfileBinding.imgProfile -> mProfileFile
+            contentCameraOnlyBinding.imgCamera -> mCameraFile
+            contentGalleryOnlyBinding.imgGallery -> mGalleryFile
             else -> null
         }
 
@@ -190,9 +206,9 @@ class MainActivity : AppCompatActivity() {
 
     fun showImageInfo(view: View) {
         val file = when (view) {
-            imgProfileInfo -> mProfileFile
-            imgCameraInfo -> mCameraFile
-            imgGalleryInfo -> mGalleryFile
+            contentProfileBinding.imgProfileInfo -> mProfileFile
+            contentCameraOnlyBinding.imgCameraInfo -> mCameraFile
+            contentGalleryOnlyBinding.imgGalleryInfo -> mGalleryFile
             else -> null
         }
 

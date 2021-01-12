@@ -2,11 +2,11 @@ package com.github.neckster.imagepicker.util
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import com.github.neckster.imagepicker.R
 import com.github.neckster.imagepicker.constant.ImageProvider
 import com.github.neckster.imagepicker.listener.ResultListener
-import kotlinx.android.synthetic.main.dialog_choose_app.view.*
 
 /**
  * Show Dialog
@@ -14,6 +14,11 @@ import kotlinx.android.synthetic.main.dialog_choose_app.view.*
  * @author Dhaval Patel
  * @version 1.0
  * @since 04 January 2018
+ *
+ * @author Mykola Digtiar
+ * @version 1.7.3
+ * @since 12 January 2021
+ *
  */
 internal object DialogHelper {
 
@@ -36,14 +41,17 @@ internal object DialogHelper {
             }
             .show()
 
+        val lytCameraPick = customView.findViewById<LinearLayout>(R.id.lytCameraPick)
+        val lytGalleryPick = customView.findViewById<LinearLayout>(R.id.lytGalleryPick)
+
         // Handle Camera option click
-        customView.lytCameraPick.setOnClickListener {
+        lytCameraPick.setOnClickListener {
             listener.onResult(ImageProvider.CAMERA)
             dialog.dismiss()
         }
 
         // Handle Gallery option click
-        customView.lytGalleryPick.setOnClickListener {
+        lytGalleryPick.setOnClickListener {
             listener.onResult(ImageProvider.GALLERY)
             dialog.dismiss()
         }
